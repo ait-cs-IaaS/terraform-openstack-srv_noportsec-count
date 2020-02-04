@@ -21,7 +21,7 @@ data "template_cloudinit_config" "cloudinit" {
 }
 
 resource "openstack_compute_instance_v2" "host" {
-  name               = "${var.hostname}_${count.index}"
+  name               = "${var.hostname}_${var.host_start_index+count.index}"
   flavor_name        = var.flavor
   key_pair           = var.sshkey
   count              = var.host_capacity
@@ -29,7 +29,7 @@ resource "openstack_compute_instance_v2" "host" {
   user_data = data.template_cloudinit_config.cloudinit.rendered
 
   metadata = {
-    groups = "${var.hostname}_${count.index}"
+    groups = "${var.hostname}_${var.host_start_index+count.index}"
   }
 
   block_device {
@@ -47,7 +47,7 @@ resource "openstack_compute_instance_v2" "host" {
 }
 
 resource "openstack_networking_port_v2" "srvport" {
-  name           = "${var.hostname}_${count.index}-port"
+  name           = "${var.hostname}_${var.host_start_index+count.index}-port"
   count              = var.host_capacity
   admin_state_up = "true"
   no_security_groups = true

@@ -6,12 +6,12 @@ variable "image_id" {
 variable "flavor" {
 	type = string
 	description = "instance flavor for the server"
-        default = "m1.small"
+	default = "m1.small"
 }
 
 variable "sshkey" {
 	type = string
-        description = "ssh key for the server"
+	description = "ssh key for the server"
 	default = "cyberrange-key"
 }
 
@@ -23,8 +23,15 @@ variable "lannet_id" {
 variable "host_capacity" {
 	type = number
 	description = "Capacity of host-instances"
-        default = 1
+	default = 1
 }
+
+variable "host_start_index" {
+	type = number
+	description = "Start index for labeling instances"
+	default = 0
+}
+
 
 variable "userdatafile" {
 	type = string

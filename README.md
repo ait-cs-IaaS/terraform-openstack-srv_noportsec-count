@@ -9,7 +9,7 @@ module "client_employees" {
 	source = "git@git-service.ait.ac.at:sct-cyberrange/terraform-modules/openstack-srv_noportsec-count.git"
 	hostname = "client_employee"
 	host_capacity = 7
-        image_id = "${var.employee_image_id}"
+        image_id = "${var.client_image_id}"
         flavor = "${var.flavor}"
         sshkey = "${var.sshkey}"
         lannet_id = "${var.lannet_id}"

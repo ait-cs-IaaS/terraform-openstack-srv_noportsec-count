@@ -29,7 +29,7 @@ resource "openstack_compute_instance_v2" "host" {
   user_data = data.template_cloudinit_config.cloudinit.rendered
 
   metadata = {
-    groups = "${var.hostname}_${var.host_start_index+count.index}"
+    groups =  var.tag != null ? var.tag : "${var.hostname}_${var.host_start_index+count.index}"
   }
 
   block_device {

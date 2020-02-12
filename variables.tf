@@ -49,4 +49,10 @@ variable "volume_size" {
 	default = 5
 }
 
+variable "tag" {
+	type = string
+	description = "group tag"
+	default = null
+}
+
 

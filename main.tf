@@ -6,7 +6,7 @@ terraform {
 }
 
 data "template_file" "user_data" {
-  template = "${file("${var.userdatafile}")}"
+  template = file(var.userdatafile)
 }
 
 data "template_cloudinit_config" "cloudinit" {

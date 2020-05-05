@@ -32,10 +32,15 @@ variable "host_start_index" {
 	default = 0
 }
 
-
 variable "userdatafile" {
 	type = string
 	description = "path to userdata file"
+}
+
+variable "userdata_vars" {
+	type = map(string)
+	description = "variables for the userdata template"
+	default = {}
 }
 
 variable "hostname" {

@@ -15,7 +15,7 @@ variable "sshkey" {
 	default = "cyberrange-key"
 }
 
-variable "lannet" {
+variable "network" {
 	type = string
 	description = "Name of the local network"
 }

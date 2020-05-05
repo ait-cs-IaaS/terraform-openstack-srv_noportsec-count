@@ -12,7 +12,7 @@ module "client_employees" {
         image_id = var.client_image_id
         flavor = var.flavor
         sshkey = var.sshkey
-        lannet_id = var.lannet_id
+        network = var.network
 	userdatafile = "${path.module}/scripts/default.yml"
         volume_size = 20
 }

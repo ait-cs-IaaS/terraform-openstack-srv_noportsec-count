@@ -5,8 +5,8 @@ terraform {
   backend "consul" {}
 }
 
-data "openstack_networking_network_v2" "lannet" {
-  name = var.lannet
+data "openstack_networking_network_v2" "network" {
+  name = var.network
 }
 
 data "openstack_images_image_v2" "image" {
@@ -62,7 +62,7 @@ resource "openstack_networking_port_v2" "srvport" {
   no_security_groups = true
   port_security_enabled = false
 
-  network_id = data.openstack_networking_network_v2.lannet.id
+  network_id = data.openstack_networking_network_v2.network.id
 }
 
 

@@ -1,69 +1,25 @@
-provider "openstack" {
-}
-
 terraform {
   backend "consul" {}
 }
 
-data "openstack_networking_network_v2" "network" {
-  name = var.network
+data "openstack_networking_subnet_v2" "subnet" {
+  name = var.subnet
 }
 
-data "openstack_images_image_v2" "image" {
-  name        = var.image
-  most_recent = true
+module "server" {
+  source = "git@git-service.ait.ac.at:sct-cyberrange/terraform-modules/openstack-srv_noportsec.git?ref=v1.2" 
+  count = var.host_capacity
+  hostname = "${var.hostname}_${var.host_label_start_index+count.index}"
+	tag = var.tag != null ? "${var.hostname},${var.tag}" : var.hostname
+	ip_address = var.host_address_start_index != null ? cidrhost(data.openstack_networking_subnet_v2.subnet.cidr, var.host_address_start_index+count.index) : null
+	image = var.image
+	flavor = var.flavor 
+	sshkey = var.sshkey
+	network = var.network
+	subnet = var.subnet
+  additional_networks = var.additional_networks
+	userdatafile = var.userdatafile
+  userdata_vars = var.userdata_vars
+  volume_size = var.volume_size
+  
 }
-
-data "template_file" "user_data" {
-  template = file(var.userdatafile)
-  vars = var.userdata_vars
-}
-
-data "template_cloudinit_config" "cloudinit" {
-  gzip          = false
-  base64_encode = false
-
-  part {
-    filename     = "init.cfg"
-    content_type = "text/cloud-config"
-    content      = data.template_file.user_data.rendered
-  }
-}
-
-resource "openstack_compute_instance_v2" "host" {
-  name               = "${var.hostname}_${var.host_start_index+count.index}"
-  flavor_name        = var.flavor
-  key_pair           = var.sshkey
-  count              = var.host_capacity
-
-  user_data = data.template_cloudinit_config.cloudinit.rendered
-
-  metadata = {
-    groups =  var.tag != null ? var.tag : "${var.hostname}_${var.host_start_index+count.index}"
-  }
-
-  block_device {
-    uuid                  = data.openstack_images_image_v2.image.id
-    source_type           = "image"
-    volume_size           = var.volume_size
-    boot_index            = 0
-    destination_type      = "volume"
-    delete_on_termination = true
-  }
-
-  network {
-     port = element(openstack_networking_port_v2.srvport.*.id, var.host_start_index+count.index)
-  }
-}
-
-resource "openstack_networking_port_v2" "srvport" {
-  name           = "${var.hostname}_${var.host_start_index+count.index}-port"
-  count              = var.host_capacity
-  admin_state_up = "true"
-  no_security_groups = true
-  port_security_enabled = false
-
-  network_id = data.openstack_networking_network_v2.network.id
-}
-
-

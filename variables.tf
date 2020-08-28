@@ -20,13 +20,36 @@ variable "network" {
 	description = "Name of the local network"
 }
 
+variable "additional_networks" {
+  type = map(
+	  object({
+		  network = string
+		  subnet = string
+		  ip_address = string
+	  })
+  )
+  description = "Additional networks instances should be connected to"
+  default = {}
+}
+
+variable "subnet" {
+	type = string
+	description = "Name of the local sub-net"
+}
+
+variable "host_address_start_index" {
+	type = number
+	description = "The host address index within the subnet to start sequentially assigning ip addresses from"
+	default = null
+}
+
 variable "host_capacity" {
 	type = number
 	description = "Capacity of host-instances"
 	default = 1
 }
 
-variable "host_start_index" {
+variable "host_label_start_index" {
 	type = number
 	description = "Start index for labeling instances"
 	default = 0
@@ -45,7 +68,7 @@ variable "userdata_vars" {
 
 variable "hostname" {
 	type = string
-	description = "hostname"
+	description = "base hostname also used as group tag"
 }
 
 variable "volume_size" {

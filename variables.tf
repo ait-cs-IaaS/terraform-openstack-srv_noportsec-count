@@ -25,7 +25,7 @@ variable "additional_networks" {
 	  object({
 		  network = string
 		  subnet = string
-		  ip_address = string
+		  host_address_start_index = number
 	  })
   )
   description = "Additional networks instances should be connected to"

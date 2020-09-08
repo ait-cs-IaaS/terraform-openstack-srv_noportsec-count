@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3
+
+- Upgrade sub-module to v1.3
+- Remove unnecessary data source usage
+
 ## v1.2.1
 
 - Add server and network info outputs

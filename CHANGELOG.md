@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.1
+
+ - Upgrade sub-module to v1.3.1 to apply config_drive hotfix
+ - Format with `terraform fmt`
+
 ## v1.3
 
 - Upgrade sub-module to v1.3

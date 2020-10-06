@@ -70,6 +70,7 @@ variable "host_label_start_index" {
 variable "userdatafile" {
   type        = string
   description = "path to userdata file"
+  default     = null
 }
 
 variable "userdata_vars" {

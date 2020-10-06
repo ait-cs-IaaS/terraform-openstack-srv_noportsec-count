@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.2
+
+ - Make userdata file input optional
+
 ## v1.3.1
 
  - Upgrade sub-module to v1.3.1 to apply config_drive hotfix

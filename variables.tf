@@ -90,4 +90,8 @@ variable "tag" {
   default     = null
 }
 
-
+variable "use_volume" {
+  type        = bool
+  description = "If the a volume or a local file should be used for storage"
+  default     = false
+}

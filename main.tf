@@ -17,7 +17,7 @@ locals {
 }
 
 module "server" {
-  source              = "git@git-service.ait.ac.at:sct-cyberrange/terraform-modules/openstack-srv_noportsec.git?ref=v1.3.2"
+  source              = "git@git-service.ait.ac.at:sct-cyberrange/terraform-modules/openstack-srv_noportsec.git?ref=v1.4"
   count               = var.host_capacity
   hostname            = "${var.hostname}_${var.host_label_start_index + count.index}"
   tag                 = var.tag != null ? "${var.hostname},${var.tag}" : var.hostname
@@ -32,5 +32,6 @@ module "server" {
   userdatafile        = var.userdatafile
   userdata_vars       = var.userdata_vars
   volume_size         = var.volume_size
+  use_volume          = var.use_volume
 
 }

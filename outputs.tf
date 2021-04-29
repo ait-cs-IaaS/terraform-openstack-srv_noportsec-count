@@ -3,4 +3,5 @@ output "instances" {
     for server in module.server :
     server
   ]
+  sensitive = true
 }

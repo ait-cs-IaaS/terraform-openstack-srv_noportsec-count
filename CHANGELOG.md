@@ -1,5 +1,13 @@
 # Changelog
+## v1.4.3
+  - Move to github
+  - Add metadata support from base module
 
+## v1.4.2
+  - Update base module to v1.4.2
+
+## v1.4.1
+  - Add sensitive flags to outputs where necessary
 ## v1.4
 
  - Add support for configuring block storage type (volume or local file).

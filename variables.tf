@@ -90,6 +90,12 @@ variable "tag" {
   default     = null
 }
 
+variable "metadata" {
+  type        = map(string)
+  description = "The metadata values to assign to the instance"
+  default     = {}
+}
+
 variable "use_volume" {
   type        = bool
   description = "If the a volume or a local file should be used for storage"

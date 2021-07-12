@@ -17,10 +17,11 @@ locals {
 }
 
 module "server" {
-  source              = "git@github.com:ait-cs-IaaS/terraform-openstack-srv_noportsec.git?ref=v1.4.2"
+  source              = "git@github.com:ait-cs-IaaS/terraform-openstack-srv_noportsec.git?ref=v1.4.3"
   count               = var.host_capacity
   hostname            = "${var.hostname}_${var.host_label_start_index + count.index}"
   tag                 = var.tag != null ? "${var.hostname},${var.tag}" : var.hostname
+  metadata            = var.metadata
   host_address_index  = var.host_address_start_index != null ? var.host_address_start_index + count.index : null
   image               = var.image
   flavor              = var.flavor

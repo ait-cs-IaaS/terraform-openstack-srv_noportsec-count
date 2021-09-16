@@ -17,7 +17,7 @@ locals {
 }
 
 module "server" {
-  source              = "git@github.com:ait-cs-IaaS/terraform-openstack-srv_noportsec.git?ref=v1.4.3"
+  source              = "git@github.com:ait-cs-IaaS/terraform-openstack-srv_noportsec.git?ref=v1.4.4"
   count               = var.host_capacity
   hostname            = "${var.hostname}_${var.host_label_start_index + count.index}"
   tag                 = var.tag != null ? "${var.hostname},${var.tag}" : var.hostname
@@ -34,5 +34,6 @@ module "server" {
   userdata_vars       = var.userdata_vars
   volume_size         = var.volume_size
   use_volume          = var.use_volume
-
+  network_access      = var.network_access
+  ext_networks        = var.ext_networks
 }

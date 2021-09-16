@@ -1,4 +1,7 @@
 # Changelog
+## v1.4.4
+  - Add ext_nets variable to assign an external network via dynmaic block
+
 ## v1.4.3
   - Move to github
   - Add metadata support from base module

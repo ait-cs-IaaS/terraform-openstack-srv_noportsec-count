@@ -14,10 +14,21 @@ locals {
       }
     }
   ]
+  networks = [
+    for count in range(0, var.host_capacity) :
+    {
+      for name, net in var.networks : name => {
+        network            = net.network
+        subnet             = net.subnet
+        access             = net.access
+        host_address_index = net.host_address_start_index != null ? net.host_address_start_index + count : null
+      }
+    }
+  ]
 }
 
 module "server" {
-  source              = "git@github.com:ait-cs-IaaS/terraform-openstack-srv_noportsec.git?ref=v1.4.4"
+  source              = "git@github.com:ait-cs-IaaS/terraform-openstack-srv_noportsec.git?ref=v1.5.0"
   count               = var.host_capacity
   hostname            = "${var.hostname}_${var.host_label_start_index + count.index}"
   tag                 = var.tag != null ? "${var.hostname},${var.tag}" : var.hostname
@@ -30,10 +41,10 @@ module "server" {
   network             = var.network
   subnet              = var.subnet
   additional_networks = local.additional_networks[count.index]
+  networks            = local.networks[count.index]
   userdatafile        = var.userdatafile
   userdata_vars       = var.userdata_vars
   volume_size         = var.volume_size
   use_volume          = var.use_volume
   network_access      = var.network_access
-  ext_networks        = var.ext_networks
 }

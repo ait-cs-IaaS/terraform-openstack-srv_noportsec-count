@@ -1,7 +1,3 @@
-terraform {
-  backend "consul" {}
-}
-
 locals {
   # create addtional network dictionary for each host instance and assign the fixed ip if `host_address_start_index` is set for the network
   additional_networks = [
